@@ -30,9 +30,14 @@ do {
             new JsonSlurper().parse( inStream as InputStream )
         }
 
+        // example paths obj:
+        // {"contentLength":"0","creationTime":"132623856824261812","etag":"0x8D8FAC915379CB4","group":"$superuser","isDirectory":"true",
+        //  "lastModified":"Thu, 08 Apr 2021 20:01:22 GMT","name":"2020/1","owner":"$superuser","permissions":"rwxr-x---"}
         json.paths.each {
             // for example, print path if a file is .xml or .xml.gz
-            if (it.name ==~ /.*\/1_.*\.xml(\.gz)?/) {
+            if (!it.isDirectory
+                &&
+                it.name ==~ /.*\/.*\.xml(\.gz)?/) {
                 println it.name
             }
         }
